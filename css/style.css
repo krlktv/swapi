@@ -1,0 +1,18 @@
+html {
+	overflow: overlay;
+
+}
+
+body {
+	background: url('../img/background.jpg') no-repeat center/cover;
+	height: 100vh;
+	background-attachment: fixed;
+}
+
+label {
+	cursor: pointer;
+}
+
+span {
+	text-decoration: underline;
+}

@@ -5,6 +5,14 @@ const form = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 let valueBtn = '';
 let isActiveSearch = false;
+const RESOURCES = {
+	films: 'films',
+	people: 'people',
+	starships: 'starships',
+	vehicles: 'vehicles',
+	species: 'species',
+	planets: 'planets',
+};
 
 document.querySelector('#buttons').addEventListener('click', e => {
 	isActiveSearch = false;
@@ -66,7 +74,7 @@ function showPagination(count) {
 function displayResults(data, value) {
 	let output = '';
 
-	if (value === 'films') {
+	if (value === RESOURCES.films) {
 		data.results.forEach(item => {
 			output += `
 				<div class="card p-3 m-3">
@@ -82,7 +90,7 @@ function displayResults(data, value) {
 		});
 	}
 
-	if (value === 'people') {
+	if (value === RESOURCES.people) {
 		data.results.forEach(item => {
 			output += `
 				<div class="card p-3 m-3">
@@ -101,7 +109,7 @@ function displayResults(data, value) {
 		});
 	}
 
-	if (value === 'starships') {
+	if (value === RESOURCES.starships) {
 		data.results.forEach(item => {
 			output += `
 				<div class="card p-3 m-3">
@@ -123,7 +131,7 @@ function displayResults(data, value) {
 		});
 	}
 
-	if (value === 'vehicles') {
+	if (value === RESOURCES.vehicles) {
 		data.results.forEach(item => {
 			output += `
 				<div class="card p-3 m-3">
@@ -145,7 +153,7 @@ function displayResults(data, value) {
 		});
 	}
 
-	if (value === 'species') {
+	if (value === RESOURCES.species) {
 		data.results.forEach(item => {
 			output += `
 				<div class="card p-3 m-3">
@@ -165,7 +173,7 @@ function displayResults(data, value) {
 		});
 	}
 
-	if (value === 'planets') {
+	if (value === RESOURCES.planets) {
 		data.results.forEach(item => {
 			output += `
 				<div class="card p-3 m-3">

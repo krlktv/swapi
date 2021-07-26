@@ -4,10 +4,10 @@ const results = document.querySelector('#results');
 const form = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 let valueBtn = '';
-let isActiveSerach = false;
+let isActiveSearch = false;
 
 document.querySelector('#buttons').addEventListener('click', e => {
-	isActiveSerach = false;
+	isActiveSearch = false;
 	valueBtn = e.target.textContent.trim().toLowerCase();
 	asyncFetch(valueBtn);
 	form.reset();
@@ -15,7 +15,7 @@ document.querySelector('#buttons').addEventListener('click', e => {
 
 form.addEventListener('submit', e => {
 	e.preventDefault();
-	isActiveSerach = true;
+	isActiveSearch = true;
 	asyncFetchSearch(document.querySelector('label.btn-lg.active').textContent.trim().toLowerCase(), searchInput.value.trim().toLowerCase());
 });
 
@@ -23,7 +23,7 @@ document.querySelector('#filmsLabel').click();
 
 document.querySelector('#pagination').addEventListener('click', e => {
 	if (e.target.classList.contains('page-link')) {
-		if (isActiveSerach) {
+		if (isActiveSearch) {
 			asyncFetchSearch(document.querySelector('label.btn-lg.active').textContent.trim().toLowerCase(), searchInput.value.trim().toLowerCase(), `&page=${e.target.textContent}`);
 		} else {
 			asyncFetch(valueBtn, e.target.textContent);

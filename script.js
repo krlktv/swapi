@@ -41,7 +41,8 @@ pagination.addEventListener('click', e => {
 		if (isActiveSearch) {
 			const activeTab = getActiveTabValue();
 			const searchInputValue = formatText(searchInput.value);
-			asyncFetchSearch(activeTab, searchInputValue, `&page=${targetText}`);
+			const page = `&page=${targetText}`;
+			asyncFetchSearch(activeTab, searchInputValue, page);
 		} else {
 			asyncFetch(valueBtn, targetText);
 		}

@@ -63,9 +63,7 @@ function showPagination(count) {
 	const countOfPages = Math.ceil(count / itemsPerPage);
 	if (countOfPages > 1) {
 		for (let i = 1; i <= countOfPages; i++) {
-			output += `
-				<li class="page-item"><button class="page-link text-dark" href="#">${i}</button></li>
-			`;
+			output += paginationBtnTemplate(i);
 		}
 	}
 	document.querySelector('#pagination').innerHTML = output;
@@ -194,4 +192,8 @@ function displayResults(data, value) {
 	}
 
 	results.innerHTML = output;
+}
+
+function paginationBtnTemplate(number) {
+	return `<li class="page-item"><button class="page-link text-dark" href="#">${number}</button></li>`;
 }

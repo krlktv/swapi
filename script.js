@@ -40,7 +40,8 @@ document.querySelector('#pagination').addEventListener('click', e => {
 });
 
 results.addEventListener('click', e => {
-	e.target.closest('.card').querySelector('.card-content').classList.toggle('collapse');
+	const card = getCard(e);
+	cardViewToggle(card);
 });
 
 async function asyncFetch(value, page = 1) {
@@ -196,4 +197,14 @@ function displayResults(data, value) {
 
 function paginationBtnTemplate(number) {
 	return `<li class="page-item"><button class="page-link text-dark" href="#">${number}</button></li>`;
+}
+
+function getCard(event) {
+	return event.target.closest('.card');
+}
+
+function cardViewToggle(card) {
+	if (card) {
+		card.querySelector('.card-content').classList.toggle('collapse');
+	}
 }

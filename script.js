@@ -1,4 +1,4 @@
-'use sctrict';
+'use strict';
 
 const results = document.querySelector('#results');
 const form = document.querySelector('#search-form');
@@ -13,10 +13,14 @@ const RESOURCES = {
 	species: 'species',
 	planets: 'planets',
 };
+const resoursesBtns = document.querySelector('#buttons');
+const filmsBtn = document.querySelector('#filmsLabel');
+const pagination = document.querySelector('.pagination');
 
-document.querySelector('#buttons').addEventListener('click', e => {
+resoursesBtns.addEventListener('click', e => {
+	const resourseBtn = getTargetText(e);
 	isActiveSearch = false;
-	valueBtn = e.target.textContent.trim().toLowerCase();
+	valueBtn = formatText(resourseBtn);
 	asyncFetch(valueBtn);
 	form.reset();
 });
@@ -24,17 +28,22 @@ document.querySelector('#buttons').addEventListener('click', e => {
 form.addEventListener('submit', e => {
 	e.preventDefault();
 	isActiveSearch = true;
-	asyncFetchSearch(document.querySelector('label.btn-lg.active').textContent.trim().toLowerCase(), searchInput.value.trim().toLowerCase());
+	const activeTab = getActiveTabValue();
+	const searchInputValue = formatText(searchInput.value);
+	asyncFetchSearch(activeTab, searchInputValue);
 });
 
-document.querySelector('#filmsLabel').click();
+filmsBtn.click();
 
-document.querySelector('#pagination').addEventListener('click', e => {
+pagination.addEventListener('click', e => {
 	if (e.target.classList.contains('page-link')) {
+		const targetText = getTargetText(e);
 		if (isActiveSearch) {
-			asyncFetchSearch(document.querySelector('label.btn-lg.active').textContent.trim().toLowerCase(), searchInput.value.trim().toLowerCase(), `&page=${e.target.textContent}`);
+			const activeTab = getActiveTabValue();
+			const searchInputValue = formatText(searchInput.value);
+			asyncFetchSearch(activeTab, searchInputValue, `&page=${targetText}`);
 		} else {
-			asyncFetch(valueBtn, e.target.textContent);
+			asyncFetch(valueBtn, targetText);
 		}
 	}
 });
@@ -67,7 +76,7 @@ function showPagination(count) {
 			output += paginationBtnTemplate(i);
 		}
 	}
-	document.querySelector('#pagination').innerHTML = output;
+	pagination.innerHTML = output;
 }
 
 function displayResults(data, value) {
@@ -207,4 +216,17 @@ function cardViewToggle(card) {
 	if (card) {
 		card.querySelector('.card-content').classList.toggle('collapse');
 	}
+}
+
+function formatText(text) {
+	return text.trim().toLowerCase();
+}
+
+function getActiveTabValue() {
+	const activeTab = document.querySelector('label.btn-lg.active').textContent;
+	return formatText(activeTab);
+}
+
+function getTargetText(event) {
+	return event.target.textContent;
 }

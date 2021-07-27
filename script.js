@@ -76,7 +76,7 @@ function getSearchUrl(value, text, page = '') {
 function showPagination(count) {
 	let output = '';
 	const itemsPerPage = 10;
-	const countOfPages = Math.ceil(count / itemsPerPage);
+	const countOfPages = count > 10 ? Math.ceil(count / itemsPerPage) : 0;
 	if (countOfPages > 1) {
 		for (let i = 1; i <= countOfPages; i++) {
 			output += paginationBtnTemplate(i);

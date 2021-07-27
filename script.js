@@ -21,7 +21,8 @@ resoursesBtns.addEventListener('click', e => {
 	const resourseBtn = getTargetText(e);
 	isActiveSearch = false;
 	valueBtn = formatText(resourseBtn);
-	asyncFetch(valueBtn);
+	const url = getTemplateUrl(valueBtn);
+	fetchData(url, valueBtn);
 	form.reset();
 });
 
@@ -30,7 +31,8 @@ form.addEventListener('submit', e => {
 	isActiveSearch = true;
 	const activeTab = getActiveTabValue();
 	const searchInputValue = formatText(searchInput.value);
-	asyncFetchSearch(activeTab, searchInputValue);
+	const url = getSearchUrl(activeTab, searchInputValue);
+	fetchData(url, activeTab);
 });
 
 filmsBtn.click();
@@ -42,9 +44,11 @@ pagination.addEventListener('click', e => {
 			const activeTab = getActiveTabValue();
 			const searchInputValue = formatText(searchInput.value);
 			const page = `&page=${targetText}`;
-			asyncFetchSearch(activeTab, searchInputValue, page);
+			const url = getSearchUrl(activeTab, searchInputValue, page);
+			fetchData(url, activeTab);
 		} else {
-			asyncFetch(valueBtn, targetText);
+			const url = getTemplateUrl(valueBtn, targetText);
+			fetchData(url, valueBtn);
 		}
 	}
 });
@@ -54,18 +58,19 @@ results.addEventListener('click', e => {
 	cardViewToggle(card);
 });
 
-async function asyncFetch(value, page = 1) {
-	const res = await fetch(`https://swapi.dev/api/${value}/?page=${page}`);
+async function fetchData(fetchTemplate, value) {
+	const res = await fetch(fetchTemplate);
 	const data = await res.json();
 	showPagination(data.count);
 	displayResults(data, value);
 }
 
-async function asyncFetchSearch(value, text, page = '') {
-	const res = await fetch(`https://swapi.dev/api/${value}/?search=${text}${page}`);
-	const data = await res.json();
-	showPagination(data.count);
-	displayResults(data, value);
+function getTemplateUrl(value, page = 1) {
+	return `https://swapi.dev/api/${value}/?page=${page}`;
+}
+
+function getSearchUrl(value, text, page = '') {
+	return `https://swapi.dev/api/${value}/?search=${text}${page}`;
 }
 
 function showPagination(count) {

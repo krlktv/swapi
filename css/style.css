@@ -11,3 +11,7 @@ label {
 span {
 	text-decoration: underline;
 }
+
+.card {
+	cursor: pointer;
+}

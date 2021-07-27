@@ -9,7 +9,9 @@ label {
 }
 
 span {
-	text-decoration: underline;
+	display: inline-block;
+	font-weight: bold;
+	margin-top: 1em;
 }
 
 .card {

@@ -1,0 +1,30 @@
+.search {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1.5rem;
+
+	&__input {
+		padding: .4rem .7rem;
+		margin-right: .5rem;
+		border: none;
+		height: 2.3rem;
+		border-radius: .25rem;
+	}
+
+	&__btn {
+		height: 100%;
+		cursor: pointer;
+		color: $main-color;
+		padding: .4rem .7rem;
+		background: $background-color;
+		border: .05rem solid $main-color;
+		border-radius: .25rem;
+		transition: .3s;
+
+		&:hover {
+			background: $main-color;
+			color: $main-color-hover;
+			border: .05rem solid $main-color;
+		}
+	}
+}

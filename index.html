@@ -7,56 +7,39 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SWAPI</title>
 	<link rel="shortcut icon" href="icons/favicon.ico">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body class="container">
+<body>
 
-	<div class="text-center mb-3" id="buttons">
-		<div class="btn-group btn-group-toggle pt-3" data-toggle="buttons">
-			<label class="btn btn-lg btn-outline-light" id="filmsLabel">
-				<input type="radio" name="options" id="films" autocomplete="off">
-				Films
-			</label>
-			<label class="btn btn-lg btn-outline-light">
-				<input type="radio" name="options" id="people" autocomplete="off">
-				People
-			</label>
-			<label class="btn btn-lg btn-outline-light">
-				<input type="radio" name="options" id="starships" autocomplete="off">
-				Starships
-			</label>
-			<label class="btn btn-lg btn-outline-light">
-				<input type="radio" name="options" id="vehicles" autocomplete="off">
-				Vehicles
-			</label>
-			<label class="btn btn-lg btn-outline-light">
-				<input type="radio" name="options" id="species" autocomplete="off">
-				Species
-			</label>
-			<label class="btn btn-lg btn-outline-light">
-				<input type="radio" name="options" id="planets" autocomplete="off">
-				Planets
-			</label>
-		</div>
-	</div>
+	<header class="header">
+		<nav class="nav">
+			<ul class="nav__list">
+				<li class="nav__item nav__item-films">Films</li>
+				<li class="nav__item">People</li>
+				<li class="nav__item">Starships</li>
+				<li class="nav__item">Vehicles</li>
+				<li class="nav__item">Species</li>
+				<li class="nav__item">Planets</li>
+			</ul>
+		</nav>
+	</header>
 
-	<div class="navbar navbar-light justify-content-center">
-		<form class="form-inline mb-3" id="search-form">
-			<input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search" id="search-input">
-			<button class="btn btn btn-outline-light" type="submit">Search</button>
+	<section class="search" role="search">
+		<form class="search__form">
+			<input class="search__input" type="search" placeholder="Search">
+			<button class="search__btn" type="submit">Search</button>
 		</form>
+	</section>
+
+	<div class="pagination">
+		<ul class="pagination__list"></ul>
 	</div>
 
-	<ul class="pagination justify-content-center"></ul>
+	<div class="results"></div>
 
-	<div id="results"></div>
+	<script src="js/script.js"></script>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="script.js"></script>
 </body>
 
 </html>

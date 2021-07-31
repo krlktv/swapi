@@ -1,8 +1,8 @@
 'use strict';
 
-const results = document.querySelector('#results');
-const form = document.querySelector('#search-form');
-const searchInput = document.querySelector('#search-input');
+const results = document.querySelector('.results');
+const form = document.querySelector('.search__form');
+const searchInput = document.querySelector('.search__input');
 let valueBtn = '';
 let isActiveSearch = false;
 const RESOURCES = {
@@ -13,14 +13,16 @@ const RESOURCES = {
 	species: 'species',
 	planets: 'planets',
 };
-const resoursesBtns = document.querySelector('#buttons');
-const filmsBtn = document.querySelector('#filmsLabel');
-const pagination = document.querySelector('.pagination');
+const resoursesBtns = document.querySelector('.nav__list');
+const resoursesBtnsItems = resoursesBtns.querySelectorAll('.nav__item');
+const filmsBtn = document.querySelector('.nav__item-films');
+const pagination = document.querySelector('.pagination__list');
 
 resoursesBtns.addEventListener('click', e => {
-	const resourseBtn = getTargetText(e);
+	toggleActiveResousesBtn(e.target);
+	const resourseBtnValue = getTargetText(e);
 	isActiveSearch = false;
-	valueBtn = formatText(resourseBtn);
+	valueBtn = formatText(resourseBtnValue);
 	const url = getTemplateUrl(valueBtn);
 	fetchData(url, valueBtn);
 	form.reset();
@@ -38,7 +40,7 @@ form.addEventListener('submit', e => {
 filmsBtn.click();
 
 pagination.addEventListener('click', e => {
-	if (e.target.classList.contains('page-link')) {
+	if (e.target.classList.contains('pagination__item')) {
 		const targetText = getTargetText(e);
 		if (isActiveSearch) {
 			const activeTab = getActiveTabValue();
@@ -91,13 +93,13 @@ function displayResults(data, value) {
 	if (value === RESOURCES.films) {
 		data.results.forEach(item => {
 			output += `
-				<div class="card p-3 m-3">
-					<h4 class="card-title text-center">${item.title}</h4>
-					<div class="card-content collapse">
+				<div class="card">
+					<h3 class="card__title card__title_close">${item.title}</h3>
+					<div class="card__content">
 						<div><span>Producer:</span> ${item.producer}</div>
 						<div><span>Director:</span> ${item.director}</div>
 						<div><span>Release date:</span> ${item.release_date}</div>
-						<p class="text-center">${item.opening_crawl}</p>
+						<p>${item.opening_crawl}</p>
 					</div>
 				</div>
 			`;
@@ -107,9 +109,9 @@ function displayResults(data, value) {
 	if (value === RESOURCES.people) {
 		data.results.forEach(item => {
 			output += `
-				<div class="card p-3 m-3">
-					<h4 class="card-title text-center">${item.name}</h4>
-					<div class="card-content collapse">
+				<div class="card">
+					<h3 class="card__title card__title_close">${item.name}</h3>
+					<div class="card__content">
 						<div><span>Birth year:</span> ${item.birth_year}</div>
 						<div><span>Height:</span> ${item.height}</div>
 						<div><span>Skin color:</span> ${item.skin_color}</div>
@@ -126,9 +128,9 @@ function displayResults(data, value) {
 	if (value === RESOURCES.starships) {
 		data.results.forEach(item => {
 			output += `
-				<div class="card p-3 m-3">
-					<h4 class="card-title text-center">${item.name}</h4>
-					<div class="card-content collapse">
+				<div class="card">
+					<h3 class="card__title card__title_close">${item.name}</h3>
+					<div class="card__content">
 						<div><span>Capacity:</span> ${item.cargo_capacity}</div>
 						<div><span>Length:</span> ${item.length}</div>
 						<div><span>Manufacturer:</span> ${item.manufacturer}</div>
@@ -148,9 +150,9 @@ function displayResults(data, value) {
 	if (value === RESOURCES.vehicles) {
 		data.results.forEach(item => {
 			output += `
-				<div class="card p-3 m-3">
-					<h4 class="card-title text-center">${item.name}</h4>
-					<div class="card-content collapse">
+				<div class="card">
+					<h3 class="card__title card__title_close">${item.name}</h3>
+					<div class="card__content">
 						<div><span>Capacity:</span> ${item.cargo_capacity}</div>
 						<div><span>Length:</span> ${item.length}</div>
 						<div><span>Manufacturer:</span> ${item.manufacturer}</div>
@@ -170,9 +172,9 @@ function displayResults(data, value) {
 	if (value === RESOURCES.species) {
 		data.results.forEach(item => {
 			output += `
-				<div class="card p-3 m-3">
-					<h4 class="card-title text-center">${item.name}</h4>
-					<div class="card-content collapse">
+				<div class="card">
+					<h3 class="card__title card__title_close">${item.name}</h3>
+					<div class="card__content">
 						<div><span>Hight:</span> ${item.average_height}</div>
 						<div><span>Language:</span> ${item.language}</div>
 						<div><span>Lifespan:</span> ${item.average_lifespan}</div>
@@ -190,9 +192,9 @@ function displayResults(data, value) {
 	if (value === RESOURCES.planets) {
 		data.results.forEach(item => {
 			output += `
-				<div class="card p-3 m-3">
-					<h4 class="card-title text-center">${item.name}</h4>
-					<div class="card-content collapse">
+				<div class="card">
+					<h3 class="card__title card__title_close">${item.name}</h3>
+					<div class="card__content">
 						<div><span>Climate:</span> ${item.climate}</div>
 						<div><span>Gravity:</span> ${item.gravity}</div>
 						<div><span>Rotation period:</span> ${item.rotation_period}</div>
@@ -211,7 +213,7 @@ function displayResults(data, value) {
 }
 
 function paginationBtnTemplate(number) {
-	return `<li class="page-item"><button class="page-link text-dark" href="#">${number}</button></li>`;
+	return `<li class="pagination__item">${number}</li>`;
 }
 
 function getCard(event) {
@@ -220,7 +222,8 @@ function getCard(event) {
 
 function cardViewToggle(card) {
 	if (card) {
-		card.querySelector('.card-content').classList.toggle('collapse');
+		card.querySelector('.card__content').classList.toggle('card__content_active');
+		card.querySelector('.card__title').classList.toggle('card__title_close');
 	}
 }
 
@@ -229,10 +232,19 @@ function formatText(text) {
 }
 
 function getActiveTabValue() {
-	const activeTab = document.querySelector('label.btn-lg.active').textContent;
+	const activeTab = document.querySelector('.nav__item_active').textContent;
 	return formatText(activeTab);
 }
 
-function getTargetText(event) {
-	return event.target.textContent;
+function getTargetText(e) {
+	return e.target.textContent;
+}
+
+function toggleActiveResousesBtn(elem) {
+	resoursesBtnsItems.forEach(btn => {
+		if (btn.classList.contains('nav__item_active')) {
+			btn.classList.remove('nav__item_active');
+		}
+	});
+	elem.classList.add('nav__item_active');
 }

@@ -1,0 +1,30 @@
+.pagination {
+	display: flex;
+	justify-content: center;
+
+	&__list {
+		display: flex;
+	}
+
+	&__item {
+		cursor: pointer;
+		color: $main-color;
+		border: .01rem solid;
+		background: $background-color;
+		transition: .3s;
+		padding: .5rem .65rem;
+		margin-bottom: .8rem;
+
+		&:hover {
+			background: $main-color;
+			color: $main-color-hover;
+			border: .05rem solid $main-color;
+		}
+
+		&_active {
+			background: $main-color;
+			color: $main-color-hover;
+			border: .05rem solid $main-color;
+		}
+	}
+}
